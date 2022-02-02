@@ -1,7 +1,7 @@
 Jupyter Notebook
 Part_I_exploration
-Last Checkpoint: vor 43 Minuten
-(unsaved changes)
+Last Checkpoint: vor 21 Minuten
+Autosave Failed!
 Current Kernel Logo
 Python 3 
 File
@@ -123,7 +123,6 @@ Rubric Tip: The project (Parts I alone) should have at least 15 visualizations d
 
 Rubric Tip: Use the "Question-Visualization-Observations" framework throughout the exploration. This framework involves asking a question from the data, creating a visualization to find answers, and then recording observations after each visualisation.
 
- plt.figure(figsize = [10, 5]) 
 # create a function for plotting the bar charts matplotlib
 def bar_chart(a, b, col):
     plt.figure(figsize = [10, 5]) 
@@ -133,7 +132,6 @@ def bar_chart(a, b, col):
 def countplot(a, b):
     plt.figure(figsize = [10, 5])
     sb.countplot(data=gobike, x= a, order= b);
-naming
 def naming(t,x,y,rot):
     #achsenbeschriftung titel, x-achse, y-achse, rotation beschriftung:rot
     plt.title(t)
@@ -163,7 +161,6 @@ naming('Top 10 most frequent End Stations', 'Station Name', 'Number of Drop offs
 
 The station with the most drop offs is the: San Francisco Caltrain Station 2 (Townsend St at 4th St)
 
-0
 # a standard-scaled plot for the Genders of the Users
 countplot('member_gender', None)
 naming('The gender of all Useres in total', 'Gender', 'Number of Users', 0)
@@ -179,11 +176,11 @@ naming('Most frequent Birthyear of Users', 'Birth year', 'Number os Users', 0)
 
 The histogram shows a right skewed diagram. with most customers are born between 1980 and 1995.
 
-0
+# pieplot? 
 #next I will look at members with the status subscribers or customer 
+# pieplot? 
 countplot('user_type', None)
 naming('Status of Users', 'Status', 'Amount', 0)
-
 As most of the users are subscribers I do not need to dig deeper into the diffrent user types.
 
 #create new columns for the moth and the weekday when the bikes are used
@@ -261,7 +258,6 @@ bins = np.arange(0, gobike['duration_sec'].max()+0.5, 20)
 plt.hist(data=gobike, x='duration_sec', bins=bins);
 naming('Duration of bike rides (total)', 'Time in sec', 'Number of rides', 0)
 
-15
 plt.figure(figsize = [15, 5])
 ​
 # plot a histogram of the usage data but cut at mean+1000 seconds
@@ -290,9 +286,10 @@ Bivariate Exploration
 In this section, investigate relationships between pairs of variables in your data. Make sure the variables that you cover here have been introduced in some fashion in the previous section (univariate exploration).
 
 Findings from above
+trip duration per day
 combined stations usage
 age groups vs gender
-which user has the longest usage in total
+which Agegroup has the longest usage in total
 # plot the top 10 most frequented combined stations
 combined_name = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10).index
 combined = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10)
@@ -376,9 +373,16 @@ As looking at the total numbers of representation it would be really interesting
 Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?
 I did not.
 
-Multivariate Exploration
-Create plots of three or more variables to investigate your data even further. Make sure that your investigations are justified, and follow from your work in the previous sections.
-
+## Multivariate Exploration
+​
+> Create plots of three or more variables to investigate your data even
+further. Make sure that your investigations are justified, and follow from
+your work in the previous sections.
+​
+- Duration of bike rides per weekday 
+- Duration per gender
+- Duration per station combination
+​
 ​
 Talk about some of the relationships you observed in this part of the investigation. Were there features that strengthened each other in terms of looking at your feature(s) of interest?
 Your answer here!
