@@ -1,7 +1,7 @@
 Jupyter Notebook
 Part_I_exploration
-Last Checkpoint: letzten Montag um 22:46 Uhr
-Autosave Failed!
+Last Checkpoint: vor einer Stunde
+(unsaved changes)
 Current Kernel Logo
 Python 3 
 File
@@ -13,7 +13,7 @@ Kernel
 Widgets
 Help
 
-Markdown
+Code
 Part I - (Dataset Exploration Title)
 by (Jana)
 Introduction
@@ -39,41 +39,8 @@ Load in your dataset and describe its properties through the questions below. Tr
 bike = pd.read_csv('201902-fordgobike-tripdata.csv')
 # look into the shape and structure of the dataset
 bike.head()
-duration_sec	start_time	end_time	start_station_id	start_station_name	start_station_latitude	start_station_longitude	end_station_id	end_station_name	end_station_latitude	end_station_longitude	bike_id	user_type	member_birth_year	member_gender	bike_share_for_all_trip
-0	52185	2019-02-28 17:32:10.1450	2019-03-01 08:01:55.9750	21.0	Montgomery St BART Station (Market St at 2nd St)	37.789625	-122.400811	13.0	Commercial St at Montgomery St	37.794231	-122.402923	4902	Customer	1984.0	Male	No
-1	42521	2019-02-28 18:53:21.7890	2019-03-01 06:42:03.0560	23.0	The Embarcadero at Steuart St	37.791464	-122.391034	81.0	Berry St at 4th St	37.775880	-122.393170	2535	Customer	NaN	NaN	No
-2	61854	2019-02-28 12:13:13.2180	2019-03-01 05:24:08.1460	86.0	Market St at Dolores St	37.769305	-122.426826	3.0	Powell St BART Station (Market St at 4th St)	37.786375	-122.404904	5905	Customer	1972.0	Male	No
-3	36490	2019-02-28 17:54:26.0100	2019-03-01 04:02:36.8420	375.0	Grove St at Masonic Ave	37.774836	-122.446546	70.0	Central Ave at Fell St	37.773311	-122.444293	6638	Subscriber	1989.0	Other	No
-4	1585	2019-02-28 23:54:18.5490	2019-03-01 00:20:44.0740	7.0	Frank H Ogawa Plaza	37.804562	-122.271738	222.0	10th Ave at E 15th St	37.792714	-122.248780	4898	Subscriber	1974.0	Male	Yes
 bike.tail()
-duration_sec	start_time	end_time	start_station_id	start_station_name	start_station_latitude	start_station_longitude	end_station_id	end_station_name	end_station_latitude	end_station_longitude	bike_id	user_type	member_birth_year	member_gender	bike_share_for_all_trip
-183407	480	2019-02-01 00:04:49.7240	2019-02-01 00:12:50.0340	27.0	Beale St at Harrison St	37.788059	-122.391865	324.0	Union Square (Powell St at Post St)	37.788300	-122.408531	4832	Subscriber	1996.0	Male	No
-183408	313	2019-02-01 00:05:34.7440	2019-02-01 00:10:48.5020	21.0	Montgomery St BART Station (Market St at 2nd St)	37.789625	-122.400811	66.0	3rd St at Townsend St	37.778742	-122.392741	4960	Subscriber	1984.0	Male	No
-183409	141	2019-02-01 00:06:05.5490	2019-02-01 00:08:27.2200	278.0	The Alameda at Bush St	37.331932	-121.904888	277.0	Morrison Ave at Julian St	37.333658	-121.908586	3824	Subscriber	1990.0	Male	Yes
-183410	139	2019-02-01 00:05:34.3600	2019-02-01 00:07:54.2870	220.0	San Pablo Ave at MLK Jr Way	37.811351	-122.273422	216.0	San Pablo Ave at 27th St	37.817827	-122.275698	5095	Subscriber	1988.0	Male	No
-183411	271	2019-02-01 00:00:20.6360	2019-02-01 00:04:52.0580	24.0	Spear St at Folsom St	37.789677	-122.390428	37.0	2nd St at Folsom St	37.785000	-122.395936	1057	Subscriber	1989.0	Male	No
 bike.info()
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 183412 entries, 0 to 183411
-Data columns (total 16 columns):
-duration_sec               183412 non-null int64
-start_time                 183412 non-null object
-end_time                   183412 non-null object
-start_station_id           183215 non-null float64
-start_station_name         183215 non-null object
-start_station_latitude     183412 non-null float64
-start_station_longitude    183412 non-null float64
-end_station_id             183215 non-null float64
-end_station_name           183215 non-null object
-end_station_latitude       183412 non-null float64
-end_station_longitude      183412 non-null float64
-bike_id                    183412 non-null int64
-user_type                  183412 non-null object
-member_birth_year          175147 non-null float64
-member_gender              175147 non-null object
-bike_share_for_all_trip    183412 non-null object
-dtypes: float64(7), int64(2), object(7)
-memory usage: 22.4+ MB
 Not all Members have valid data in the birth_year and gender column. As these are interesting values I will drop the rows with NaN
 
 The bike_id is a integer -> I am going to convert it to a str
@@ -133,9 +100,13 @@ def bar_chart(a, b, col, rot):
 def countplot(a, b, rot):
     plt.figure(figsize = [10, 5])
     sb.countplot(data=gobike, x= a, order= b);
-    plt.xticks(rotation=rot);
-#def axis(a,b,c):
+    plt.xticks(rotation=rot)
+def axis(x,y,rot):
     #achsenbeschriftung titel, x-achse, y-achse, rotation beschriftung:rot
+    plt.xlabel(x)
+    plt.ylabel(y)
+    plt.xticks(rotation=rot);
+    
 gobike['start_station_name'].nunique()
 329
 gobike['end_station_name'].nunique()
@@ -201,7 +172,8 @@ bar_chart(bike_use, usage, 'green', 90)
 
 The most used bike is the bike with the number 4794
 
-# next I will look into the ride data
+the bikes were in use
+# next I will look into the ride data - how long the bikes were in use
 # first figure out the longest and shortest ride time
 max = gobike['duration_sec'].max()
 maxh = max/3600
@@ -209,8 +181,8 @@ min = gobike['duration_sec'].min()
 ​
 min, max, maxh
 (61, 84548, 23.485555555555557)
-> these ride times are quite wide spreaded, min ride time of 61 seconds is probably someone who redcided after renting the bike. the max time of 23.5 hours is quite long. 
-2
+these ride times are quite wide spreaded, min ride time of 61 seconds is probably someone who redcided after renting the bike. the max time of 23.5 hours is quite long.
+
 # next I will check for more "outliers" close to the max riding time.
 gobike['duration_sec'].sort_values().tail(20)
 120711    69335
@@ -238,20 +210,20 @@ gobike['duration_sec'].mean()
 704.25593591847507
 There are constantly users who use the bike for several hours, though looking and the mean the average time is 704 seconds.
 
-# Define the figure size
 plt.figure(figsize = [20, 5])
 ​
-# histogram on left: full data
-plt.subplot(1, 2, 1)
-bin_edges = np.arange(0, gobike['duration_sec'].max()+0.5)
-plt.hist(data=gobike, x='duration_sec', bins=bin_edges)
+# plot a histogram of full the usage data 
+bins = np.arange(0, gobike['duration_sec'].max()+0.5, 20)
+plt.hist(data=gobike, x='duration_sec', bins=bins);
+
+plt.xlim(0, 1750);
+plt.figure(figsize = [20, 5])
 ​
 # plot a histogram of the usage data but cut at mean+1000 seconds
-plt.subplot(1, 2, 2)
-bins = np.arange(0, gobike['duration_sec'].mean()+1000)
+​
+bins = np.arange(0, gobike['duration_sec'].mean()+1000, 20)
 plt.hist(data=gobike, x='duration_sec', bins=bins);
-plt.xlim(0, 6)
-(0, 6)
+plt.xlim(0, 1750);
 
 The graph with the full data is left skewd but hard to read so I decided to plot a subplot with a closer look. the peak is around 500 seconds or 14 minutes or riding time.
 
@@ -275,11 +247,6 @@ Findings from above
 combined stations usage
 age groups vs gender
 which user has the longest usage in total
-# plot the top 10 most frequented combined stations
-combined_name = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10).index
-combined = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10)
-bar_chart(combined_name, combined, 'navy', 90)
-
 # plot the top 10 most frequented combined stations
 combined_name = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10).index
 combined = (gobike['start_station_name'] + ' - ' + gobike['end_station_name']).value_counts().head(10)
@@ -312,7 +279,6 @@ min          21.000000
 75%          42.000000
 max          72.000000
 Name: member_age, dtype: float64
-member_gender
 bins = [20 ,30, 40, 50, 60, 71]
 labels = ['20-30 years','30-40 years','40-50 years', '50-60 years', '60-70 years']
 gobike['bins'] = pd.cut(gobike['member_age'], bins=bins, labels=labels, include_lowest=True)
@@ -329,7 +295,6 @@ cats.plot.bar(stacked=True);
 
 Looking at the Graph all genders are most represented in the ages 30-40 years and second most in 20-30 years. As these are the total numbers I would like to see the change, when I look at the proportions.
 
-.
 #calculating the proportion of the gender
 prop = gobike.groupby('member_gender')['bins'].value_counts(normalize=True).unstack('member_gender')
 prop
@@ -345,15 +310,47 @@ prop.plot.bar(stacked=True);
 
 In the first plot looking at the total numbers; I could see the dominace of the male users. But looking at the proportions of each Gender group the representation of all three Gender types is the same. For more details I can look at the table printed and I can see there are slight differences but for this analysis I will neglect them.
 
+gobike.info()
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 174278 entries, 0 to 183411
+Data columns (total 20 columns):
+duration_sec               174278 non-null int64
+start_time                 174278 non-null datetime64[ns]
+end_time                   174278 non-null object
+start_station_id           174278 non-null float64
+start_station_name         174278 non-null object
+start_station_latitude     174278 non-null float64
+start_station_longitude    174278 non-null float64
+end_station_id             174278 non-null float64
+end_station_name           174278 non-null object
+end_station_latitude       174278 non-null float64
+end_station_longitude      174278 non-null float64
+bike_id                    174278 non-null object
+user_type                  174278 non-null object
+member_birth_year          174278 non-null float64
+member_gender              174278 non-null object
+bike_share_for_all_trip    174278 non-null object
+month                      174278 non-null int64
+day_of_week                174278 non-null object
+member_age                 174278 non-null int64
+bins                       174100 non-null category
+dtypes: category(1), datetime64[ns](1), float64(7), int64(3), object(8)
+memory usage: 31.8+ MB
+# How is the correlation between the Age of a user and the time she used the bike
+​
+sb.regplot(data = gobike, x = 'duration_sec', y = 'member_age');
+
+This plot is clearly overplotted in the main time usages, but it shows that the times a user took it for a longer ride it was all middle aged people between 20 and 50 years.
+
 Talk about some of the relationships you observed in this part of the investigation. How did the feature(s) of interest vary with other features in the dataset?
 The most common pick up station does not match the most frequented drop-off point. So I created a new plot that looked into the combination of pick up and drop off station. The combination of the most frequented pick up and drop off station does exist in the top 10 combinations but interestingly it is the least. The most used combination of stations are both found in the individual top 10 station picks on lower positions.
 
 Categorizing the Age in 10 year steps to look at the gender representation as a total I clearly see the representation of Males is the highest in all Age groups. The Age Group 30-40 years is represented the most between Users and the Age Group 20-30 years is second most.
 
-As lookign at the total numbers of representation it would be really interesting to see the representation of each gender in the age groups in proportion of the total representation of the three genders. And the Grpah changes completly. It shows that all genders are represented in each age group the same (a third each)
+As looking at the total numbers of representation it would be really interesting to see the representation of each gender in the age groups in proportion of the total representation of the three genders. And the Grpah changes completly. It shows that all genders are represented in each age group the same (a third each)
 
 Did you observe any interesting relationships between the other features (not the main feature(s) of interest)?
-No I did not.
+I did not.
 
 Multivariate Exploration
 Create plots of three or more variables to investigate your data even further. Make sure that your investigations are justified, and follow from your work in the previous sections.
